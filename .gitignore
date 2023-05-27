@@ -3,3 +3,4 @@
 /nasa-project/server/node_modules/
 
 nasa-project/server/.env
+security-example/google-api-secrets.json
