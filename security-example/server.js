@@ -7,6 +7,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const { Strategy } = require('passport-google-oauth20');
 const { verify } = require('crypto');
+const { log } = require('console');
 
 require('dotenv').config();
 
@@ -64,7 +65,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 function checkLoggedIn(req, res, next) {
-    const isLoggedIn = true; // TODO
+    console.log('req.user', req.user);
+    const isLoggedIn = req.isAuthenticated() && req.user;
 
     if (!isLoggedIn) {
         return res.status(401).json({
