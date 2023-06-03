@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
 const passport = require('passport');
+const cookieSession = require('cookie-session');
 const { Strategy } = require('passport-google-oauth20');
 const { verify } = require('crypto');
 
@@ -36,6 +37,14 @@ const app = express();
 
 // secuity middleware needs to ne added before any other middleware
 app.use(helmet());
+
+// cookie session middleware
+app.use(cookieSession({
+    name: 'session',
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
+}));
+
 app.use(passport.initialize());
 
 function checkLoggedIn(req, res, next) {
